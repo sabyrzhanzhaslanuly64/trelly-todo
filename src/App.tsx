@@ -1,52 +1,22 @@
-import { useState } from 'react'
-
-const tasks = [
-  {
-    id: 1,
-    title: 'Купить продукты на неделю',
-    isDone: false,
-    addedAt: '1 сентября',
-    priority: 2,
-  },
-  {
-    id: 2,
-    title: 'Полить цветы',
-    isDone: true,
-    addedAt: '2 сентября',
-    priority: 0,
-  },
-  {
-    id: 3,
-    title: 'Сходить на тренировку',
-    isDone: false,
-    addedAt: '3 сентября',
-    priority: 1,
-  },
-  {
-    id: 4,
-    title: 'Срочно отправить рабочий отчет',
-    isDone: false,
-    addedAt: '4 сентября',
-    priority: 4,
-  },
-  {
-    id: 5,
-    title: 'Заплатить за коммунальные услуги',
-    isDone: false,
-    addedAt: '3 сентября',
-    priority: 3,
-  },
-]
-
+import { useEffect, useState } from 'react'
 
 export const App = () => {
   const [selectedTaskId, setSelectedTaskId] = useState(null)
+  const [tasks, setTasks] = useState(null)
 
-  const priorities = ['#fff', '#ffd7b5', '#ffb38a', '#ff9248', '#ff6700']
+  useEffect(() => {
+    fetch('https://trelly.it-incubator.app/api/1.0/boards/tasks', {
+      headers: {
+        'api-key': import.meta.env.VITE_API_KEY,
+      },
+    })
+  }, [])
 
   if (tasks === null) return <h1>Загрузка...</h1>
 
   if (tasks.length === 0) return <h1>Задачи отсутствуют</h1>
+
+  const priorities = ['#fff', '#ffd7b5', '#ffb38a', '#ff9248', '#ff6700']
 
   return (
     <>
