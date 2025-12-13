@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 export const App = () => {
   const [selectedTaskId, setSelectedTaskId] = useState(null)
   const [selectedTask, setSelectedTask] = useState(null)
+  const [taskDetails, setTaskDetails] = useState(null)
   const [tasks, setTasks] = useState(null)
 
   useEffect(() => {
@@ -13,6 +14,21 @@ export const App = () => {
     }).then(res => res.json())
       .then(json => setTasks(json.data))
   }, [])
+
+  useEffect(() => {
+    if (!selectedTask) return
+
+    fetch(
+      `https://trelly.it-incubator.app/api/1.0/boards/${selectedTask.attributes.boardId}/tasks/${selectedTask.id}`,
+      {
+        headers: {
+          'api-key': import.meta.env.VITE_API_KEY,
+        },
+      },
+    )
+      .then(res => res.json())
+      .then(json => setTaskDetails(json.data))
+  }, [selectedTask])
 
   if (tasks === null) return <h1>Загрузка...</h1>
 
@@ -58,8 +74,24 @@ export const App = () => {
         <div className="task-details">
           <h2>Task details</h2>
 
-          {!selectedTask && <p>Task is not selected</p>}
-          {selectedTask && selectedTask.id === selectedTaskId && <p>{selectedTask.attributes.title}</p>}
+          {!taskDetails && <p>Task is not selected</p>}
+
+          {taskDetails && (
+            <div>
+              <p>
+                <b>Title: </b>
+                {taskDetails.attributes.title}
+              </p>
+              <p>
+                <b>Board title: </b>
+                {taskDetails.attributes.boardTitle}
+              </p>
+              <p>
+                <b>Description: </b>
+                {taskDetails.attributes.description || 'no description'}
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </>
