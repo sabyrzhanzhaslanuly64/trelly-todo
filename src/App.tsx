@@ -49,32 +49,36 @@ export const App = () => {
   if (tasks.length === 0) return <h1>Задачи отсутствуют</h1>
 
   return (
-    <ul>
-      {tasks.map((task) => (
-        <li
-          key={task.id}
-          onClick={() => setSelectedTaskId(task.id)}
-          style={{
-            background: priorities[task.priority],
-            border: `2px solid ${task.id === selectedTaskId ? 'blue' : 'black'}`,
-          }}
-        >
-          <p>
-            <b>Заголовок: </b>
-            <span style={{ textDecoration: task.isDone ? 'line-through' : 'none' }}>
+    <>
+      <button onClick={() => setSelectedTaskId(null)}>Сбросить выделение</button>
+
+      <ul>
+        {tasks.map((task) => (
+          <li
+            key={task.id}
+            onClick={() => setSelectedTaskId(task.id)}
+            style={{
+              background: priorities[task.priority],
+              border: `2px solid ${task.id === selectedTaskId ? 'blue' : 'black'}`,
+            }}
+          >
+            <p>
+              <b>Заголовок: </b>
+              <span style={{ textDecoration: task.isDone ? 'line-through' : 'none' }}>
               {task.title}
             </span>
-          </p>
-          <p>
-            <b>Статус: </b>
-            <input type="checkbox" defaultChecked={task.isDone} />
-          </p>
-          <p>
-            <b>Дата создания задачи: </b>
-            <span>{task.addedAt}</span>
-          </p>
-        </li>
-      ))}
-    </ul>
+            </p>
+            <p>
+              <b>Статус: </b>
+              <input type="checkbox" defaultChecked={task.isDone} />
+            </p>
+            <p>
+              <b>Дата создания задачи: </b>
+              <span>{task.addedAt}</span>
+            </p>
+          </li>
+        ))}
+      </ul>
+    </>
   )
 }
