@@ -9,7 +9,8 @@ export const App = () => {
       headers: {
         'api-key': import.meta.env.VITE_API_KEY,
       },
-    })
+    }).then(res => res.json())
+      .then(json => setTasks(json.data))
   }, [])
 
   if (tasks === null) return <h1>Загрузка...</h1>
@@ -28,23 +29,23 @@ export const App = () => {
             key={task.id}
             onClick={() => setSelectedTaskId(task.id)}
             style={{
-              background: priorities[task.priority],
+              background: priorities[task.attributes.priority],
               border: `2px solid ${task.id === selectedTaskId ? 'blue' : 'black'}`,
             }}
           >
             <p>
               <b>Заголовок: </b>
-              <span style={{ textDecoration: task.isDone ? 'line-through' : 'none' }}>
-              {task.title}
+              <span style={{ textDecoration: task.status === 2 ? 'line-through' : 'none' }}>
+              {task.attributes.title}
             </span>
             </p>
             <p>
               <b>Статус: </b>
-              <input type="checkbox" defaultChecked={task.isDone} />
+              <input type="checkbox" defaultChecked={task.attributes.status} />
             </p>
             <p>
               <b>Дата создания задачи: </b>
-              <span>{task.addedAt}</span>
+              <span>{task.attributes.addedAt}</span>
             </p>
           </li>
         ))}
