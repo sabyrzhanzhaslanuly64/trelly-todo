@@ -30,7 +30,7 @@ export const App = () => {
       .then(json => setTaskDetails(json.data))
   }, [selectedTask])
 
-  if (tasks === null) return <h1>Загрузка...</h1>
+  if (!tasks) return <h1>Загрузка...</h1>
 
   if (tasks.length === 0) return <h1>Задачи отсутствуют</h1>
 
@@ -38,7 +38,14 @@ export const App = () => {
 
   return (
     <>
-      <button onClick={() => setSelectedTaskId(null)}>Сбросить выделение</button>
+      <button
+        onClick={() => {
+          setSelectedTaskId(null)
+          setTaskDetails(null)
+        }}
+      >
+        Сбросить выделение
+      </button>
 
       <div style={{ display: 'flex', columnGap: '30px' }}>
         <ul className="playlist">
@@ -75,6 +82,8 @@ export const App = () => {
           <h2>Task details</h2>
 
           {!taskDetails && <p>Task is not selected</p>}
+
+          {selectedTask && !taskDetails && <p>Loading...</p>}
 
           {taskDetails && (
             <div>
