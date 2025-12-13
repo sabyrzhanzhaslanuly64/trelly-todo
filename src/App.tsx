@@ -46,7 +46,11 @@ export const App = () => {
   return (
     <ul>
       {tasks.map((task) => (
-        <li key={task.id} style={{ background: priorities[task.priority] }}>
+        <li
+          key={task.id}
+          onClick={() => alert(task.id)}
+          style={{ background: priorities[task.priority] }}
+        >
           <p>
             <b>Заголовок: </b>
             <span style={{ textDecoration: task.isDone ? 'line-through' : 'none' }}>
