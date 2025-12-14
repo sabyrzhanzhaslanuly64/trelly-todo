@@ -1,6 +1,6 @@
 import { TaskList } from './components/TaskList'
 import { TaskDetails } from './components/TaskDetails'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 export const MainPage = () => {
   const [selectedTaskId, setSelectedTaskId] = useState(null)
