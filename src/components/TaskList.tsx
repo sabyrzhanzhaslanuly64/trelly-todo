@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export const TaskList = () => {
-  const [selectedTaskId, setSelectedTaskId] = useState(null)
+export const TaskList = (props) => {
   const [tasks, setTasks] = useState(null)
 
   useEffect(() => {
@@ -25,13 +24,12 @@ export const TaskList = () => {
         <li
           key={task.id}
           onClick={() => {
-            setSelectedTaskId(task.id)
-            // setBoardId(task.attributes.boardId)
-            // setSelectedTask(null)
+            props.setSelectedTaskId(task.id)
+            props.setBoardId(task.attributes.boardId)
           }}
           style={{
             background: priorities[task.attributes.priority],
-            border: `2px solid ${task.id === selectedTaskId ? 'blue' : 'black'}`,
+            border: `2px solid ${task.id === props.selectedTaskId ? 'blue' : 'black'}`,
           }}
         >
           <p>
