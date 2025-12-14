@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 
-export const TaskDetails = (props) => {
+export const TaskDetails = ({ selectedTaskId, boardId }) => {
   const [selectedTask, setSelectedTask] = useState(null)
 
   useEffect(() => {
-    if (!props.selectedTaskId) return setSelectedTask(null)
+    if (!selectedTaskId) return setSelectedTask(null)
 
     fetch(
-      `https://trelly.it-incubator.app/api/1.0/boards/${props.boardId}/tasks/${props.selectedTaskId}`,
+      `https://trelly.it-incubator.app/api/1.0/boards/${boardId}/tasks/${selectedTaskId}`,
       {
         headers: {
           'api-key': import.meta.env.VITE_API_KEY,
@@ -16,15 +16,15 @@ export const TaskDetails = (props) => {
     )
       .then(res => res.json())
       .then(json => setSelectedTask(json.data))
-  }, [props.selectedTaskId])
+  }, [selectedTaskId])
 
   return (
     <div className="task-details">
       <h2>Task details</h2>
 
-      {!props.selectedTaskId && <p>Task is not selected</p>}
+      {!selectedTaskId && <p>Task is not selected</p>}
 
-      {props.selectedTaskId && !selectedTask && <p>Loading...</p>}
+      {selectedTaskId && !selectedTask && <p>Loading...</p>}
 
       {selectedTask && (
         <div>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { TaskItem } from './TaskItem'
 
-export const TaskList = (props) => {
+export const TaskList = ({ selectedTaskId, setSelectedTaskId, setBoardId }) => {
   const [tasks, setTasks] = useState(null)
 
   useEffect(() => {
@@ -21,21 +21,21 @@ export const TaskList = (props) => {
     <div>
       <button
         onClick={() => {
-          props.setSelectedTaskId(null)
-          props.setBoardId(null)
+          setSelectedTaskId(null)
+          setBoardId(null)
         }}
       >
         Reset
       </button>
-      <hr/>
+      <hr />
       <ul className="playlist">
         {tasks.map((task) => (
           <TaskItem
             key={task.id}
             task={task}
-            isSelected={task.id === props.selectedTaskId}
-            onTaskSelected={props.setSelectedTaskId}
-            setBoardId={props.setBoardId}
+            isSelected={task.id === selectedTaskId}
+            onTaskSelected={setSelectedTaskId}
+            setBoardId={setBoardId}
           />
         ))}
       </ul>
