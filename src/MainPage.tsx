@@ -1,8 +1,8 @@
 import { Header } from './components/Header'
+import { PageTitle } from './components/PageTitle'
 import { TaskList } from './components/TaskList'
 import { TaskDetails } from './components/TaskDetails'
 import { Footer } from './components/Footer'
-import { PageTitle } from './components/PageTitle'
 
 export const MainPage = () => {
   return (
