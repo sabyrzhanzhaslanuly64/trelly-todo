@@ -1,10 +1,35 @@
 import { useEffect, useState } from 'react'
 
-export const TaskDetails = ({ selectedTaskId, boardId }) => {
-  const [selectedTask, setSelectedTask] = useState(null)
+type TaskAttributes = {
+  title: string
+  boardTitle: string
+  boardId: string
+  priority: number
+  description: string | null
+  status: number
+  addedAt: string
+  attachments: string[]
+}
+
+export type Task = {
+  id: string
+  type: 'tasks'
+  attributes: TaskAttributes
+}
+
+type Props = {
+  selectedTaskId: string | null
+  boardId: string | null
+}
+
+export const TaskDetails = ({ selectedTaskId, boardId }: Props) => {
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null)
 
   useEffect(() => {
-    if (!selectedTaskId) return setSelectedTask(null)
+    if (!selectedTaskId || !boardId) {
+      setSelectedTask(null)
+      return
+    }
 
     fetch(
       `https://trelly.it-incubator.app/api/1.0/boards/${boardId}/tasks/${selectedTaskId}`,
@@ -16,7 +41,7 @@ export const TaskDetails = ({ selectedTaskId, boardId }) => {
     )
       .then(res => res.json())
       .then(json => setSelectedTask(json.data))
-  }, [selectedTaskId])
+  }, [selectedTaskId, boardId])
 
   return (
     <div className="task-details">

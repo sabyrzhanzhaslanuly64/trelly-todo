@@ -1,4 +1,13 @@
-export const TaskItem = ({ task, isSelected, onTaskSelected, setBoardId }) => {
+import type { Task } from './TaskDetails'
+
+type Props = {
+  task: Task
+  isSelected: boolean
+  onTaskSelected: (id: string) => void
+  setBoardId: (id: string) => void
+}
+
+export const TaskItem = ({ task, isSelected, onTaskSelected, setBoardId }: Props) => {
   const priorities = ['#fff', '#ffd7b5', '#ffb38a', '#ff9248', '#ff6700']
 
   return (
@@ -14,13 +23,13 @@ export const TaskItem = ({ task, isSelected, onTaskSelected, setBoardId }) => {
     >
       <p>
         <b>Заголовок: </b>
-        <span style={{ textDecoration: task.status === 2 ? 'line-through' : 'none' }}>
+        <span style={{ textDecoration: task.attributes.status === 2 ? 'line-through' : 'none' }}>
               {task.attributes.title}
             </span>
       </p>
       <p>
         <b>Статус: </b>
-        <input type="checkbox" defaultChecked={task.attributes.status} />
+        <input type="checkbox" defaultChecked={task.attributes.status === 2} />
       </p>
       <p>
         <b>Дата создания задачи: </b>

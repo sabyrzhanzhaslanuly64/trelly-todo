@@ -1,8 +1,15 @@
 import { useEffect, useState } from 'react'
 import { TaskItem } from './TaskItem'
+import type { Task } from './TaskDetails'
 
-export const TaskList = ({ selectedTaskId, setSelectedTaskId, setBoardId }) => {
-  const [tasks, setTasks] = useState(null)
+type Props = {
+  selectedTaskId: string | null
+  setSelectedTaskId: (id: string | null) => void
+  setBoardId: (id: string | null) => void
+}
+
+export const TaskList = ({ selectedTaskId, setSelectedTaskId, setBoardId }: Props) => {
+  const [tasks, setTasks] = useState<Task[] | null>(null)
 
   useEffect(() => {
     fetch('https://trelly.it-incubator.app/api/1.0/boards/tasks', {

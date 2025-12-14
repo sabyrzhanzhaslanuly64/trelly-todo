@@ -3,8 +3,8 @@ import { TaskDetails } from './components/TaskDetails'
 import { useState } from 'react'
 
 export const MainPage = () => {
-  const [selectedTaskId, setSelectedTaskId] = useState(null)
-  const [boardId, setBoardId] = useState(null)
+  const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null)
+  const [boardId, setBoardId] = useState<string | null>(null)
 
   return (
     <main>
