@@ -27,7 +27,7 @@ export const TaskList = () => {
           onClick={() => {
             setSelectedTaskId(task.id)
             // setBoardId(task.attributes.boardId)
-            // setTaskDetails(null)
+            // setSelectedTask(null)
           }}
           style={{
             background: priorities[task.attributes.priority],

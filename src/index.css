@@ -23,13 +23,8 @@ ul {
   }
 }
 
-.playlist {
-  flex-basis: 80%;
-}
-
 .task-details {
   padding: 6px 12px;
   border: 2px solid #333;
   border-radius: 10px;
-  width: 100%;
 }

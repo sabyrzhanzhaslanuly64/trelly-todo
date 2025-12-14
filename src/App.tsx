@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 export const App = () => {
   const [selectedTaskId, setSelectedTaskId] = useState(null)
   const [boardId, setBoardId] = useState(null)
-  const [taskDetails, setTaskDetails] = useState(null)
+  const [selectedTask, setSelectedTask] = useState(null)
   const [tasks, setTasks] = useState(null)
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export const App = () => {
       },
     )
       .then(res => res.json())
-      .then(json => setTaskDetails(json.data))
+      .then(json => setSelectedTask(json.data))
   }, [selectedTaskId])
 
   if (!tasks) return <h1>Загрузка...</h1>
@@ -41,7 +41,7 @@ export const App = () => {
       <button
         onClick={() => {
           setSelectedTaskId(null)
-          setTaskDetails(null)
+          setSelectedTask(null)
         }}
       >
         Сбросить выделение
@@ -55,7 +55,7 @@ export const App = () => {
               onClick={() => {
                 setSelectedTaskId(task.id)
                 setBoardId(task.attributes.boardId)
-                setTaskDetails(null)
+                setSelectedTask(null)
               }}
               style={{
                 background: priorities[task.attributes.priority],
@@ -84,13 +84,13 @@ export const App = () => {
 
           {!selectedTaskId && <p>Task is not selected</p>}
 
-          {selectedTaskId && !taskDetails && <p>Loading...</p>}
+          {selectedTaskId && !selectedTask && <p>Loading...</p>}
 
-          {taskDetails && (
+          {selectedTask && (
             <div>
-              <p><b>Title:</b> {taskDetails.attributes.title}</p>
-              <p><b>Board title:</b> {taskDetails.attributes.boardTitle}</p>
-              <p><b>Description:</b> {taskDetails.attributes.description || 'no description'}</p>
+              <p><b>Title:</b> {selectedTask.attributes.title}</p>
+              <p><b>Board title:</b> {selectedTask.attributes.boardTitle}</p>
+              <p><b>Description:</b> {selectedTask.attributes.description || 'no description'}</p>
             </div>
           )}
         </div>
