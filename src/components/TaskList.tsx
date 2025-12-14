@@ -18,16 +18,27 @@ export const TaskList = (props) => {
   if (tasks.length === 0) return <h1>Задачи отсутствуют</h1>
 
   return (
-    <ul className="playlist">
-      {tasks.map((task) => (
-        <TaskItem
-          key={task.id}
-          task={task}
-          isSelected={task.id === props.selectedTaskId}
-          onTaskSelected={props.setSelectedTaskId}
-          setBoardId={props.setBoardId}
-        />
-      ))}
-    </ul>
+    <div>
+      <button
+        onClick={() => {
+          props.setSelectedTaskId(null)
+          props.setBoardId(null)
+        }}
+      >
+        Reset
+      </button>
+      <hr/>
+      <ul className="playlist">
+        {tasks.map((task) => (
+          <TaskItem
+            key={task.id}
+            task={task}
+            isSelected={task.id === props.selectedTaskId}
+            onTaskSelected={props.setSelectedTaskId}
+            setBoardId={props.setBoardId}
+          />
+        ))}
+      </ul>
+    </div>
   )
 }

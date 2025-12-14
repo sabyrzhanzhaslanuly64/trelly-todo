@@ -4,7 +4,7 @@ export const TaskDetails = (props) => {
   const [selectedTask, setSelectedTask] = useState(null)
 
   useEffect(() => {
-    if (!props.selectedTaskId || !props.boardId) return
+    if (!props.selectedTaskId) return setSelectedTask(null)
 
     fetch(
       `https://trelly.it-incubator.app/api/1.0/boards/${props.boardId}/tasks/${props.selectedTaskId}`,
